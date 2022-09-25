@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Pane } from 'evergreen-ui';
-import { ProjectMap } from './components/ProjectMap';
+import { Main } from './components/Main';
+import 'antd/dist/antd.css';
 
 
 function App() {
@@ -16,11 +16,7 @@ function App() {
             .then((data) => setDataState({loaded: true, data}));
     }
 
-    return (
-        <Pane width="100vw" height="100vh" position="absolute">
-            <ProjectMap loaded={dataState.loaded} data={dataState.data} />
-        </Pane>
-    );
+    return <Main dataLoaded={dataState.loaded} data={dataState.data} />
 }
 
 export default App;
