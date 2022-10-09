@@ -6,7 +6,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import DeckGL from '@deck.gl/react';
 import { GeoJsonLayer } from '@deck.gl/layers';
 import { get, getOr, map } from 'lodash/fp';
-import { colorOfState } from '../colors';
+import { colorOfState, colorToRGBArray } from '../colors';
 import { Spin } from 'antd';
 
 
@@ -25,9 +25,31 @@ const projectToGeoJsonFeature = (project) => {
 };
 
 
-const getLineColor = (o) => colorOfState(get('properties.state', o));
+const getLineColor = (picked) => {
+    return (o) => {
+        if (picked === null) {
+            return colorOfState(get('properties.state', o));
+        } else if (get('id', o) === picked) {
+            return colorToRGBArray("#ff7700");
+        } else {
+            return colorToRGBArray("#d3d3d3");
+        }
+    }
+}
 
-const ProjectMap = ({data, setMapLoaded}) => {
+const getLineWidth = (picked) => {
+    return (o) => {
+        if (picked === null) {
+            return 3;
+        } else if (get('id', o) === picked) {
+            return 5;
+        } else {
+            return 3;
+        }
+    }
+}
+
+const ProjectMap = ({data, setMapLoaded, setPicked, picked}) => {
     const [viewState, setViewState] = useState({
         longitude: 151.1,
         latitude: -33.8,
@@ -42,11 +64,14 @@ const ProjectMap = ({data, setMapLoaded}) => {
     const layer = new GeoJsonLayer({
         data: layerData,
         pickable: true,
-        lineWidthMinPixels: 3,
-        getLineColor: getLineColor
+        getLineColor: getLineColor(picked),
+        getLineWidth: getLineWidth(picked),
+        lineWidthUnits: 'pixels',
+        lineCapRounded: true,
+        lineJointRounded: true,
     });
 
-    const onClick = (info, event) => console.log(info);
+    const onClick = (info) => setPicked(getOr(null)('object.id')(info));
 
     return (
         <Map 

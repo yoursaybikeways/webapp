@@ -1,9 +1,9 @@
 import { Fragment, useState } from 'react';
 import { ProjectMap } from './ProjectMap';
-import { Panel } from './Panel';
 import { Row, Col, Card, Spin } from 'antd';
-import { ProjectStatusCard } from './ProjectStatusCard';
 import { getOr, get, map, filter } from 'lodash/fp';
+import { ProjectStatusCard } from './ProjectStatusCard';
+import { InfoCard } from './InfoCard';
 
 
 const SideCard = ({loading, children}) => {
@@ -38,6 +38,12 @@ const Main = ({dataLoaded, data}) => {
             states
         )
     );
+    const [picked, setPicked] = useState(null);
+    const pickedProject = getOr({})(0)(filter(
+        (p) => p.key === picked,
+        getOr([])('projects')(data)
+    ));
+
     const projects = filter(
         (p) => selectedStates.includes(get('state.key', p)),
         getOr([], 'projects', data)
@@ -48,7 +54,7 @@ const Main = ({dataLoaded, data}) => {
             <Col flex={4}>
                 <Spin spinning={!(dataLoaded && mapLoaded)}>
                     <div style={{height: '100vh', padding: '8px 0px 8px 8px'}}>
-                        <ProjectMap data={projects} setMapLoaded={setMapLoaded} />
+                        <ProjectMap data={projects} setMapLoaded={setMapLoaded} setPicked={setPicked} picked={picked}/>
                     </div>
                 </Spin>
             </Col>
@@ -59,6 +65,7 @@ const Main = ({dataLoaded, data}) => {
                     selectedStates={selectedStates}
                     setSelectedStates={setSelectedStates}
                 />
+                <InfoCard picked={pickedProject} />
             </Col>
         </Row>
     )
