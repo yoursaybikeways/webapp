@@ -11,7 +11,7 @@ function App() {
     })
 
     if (!dataState.loaded) {
-        fetch("cycle_projects.json")
+        fetch("https://raw.githubusercontent.com/yoursaybikeways/data/main/cycle_projects.json")
             .then((r) => r.json())
             .then((data) => setDataState({loaded: true, data}));
     }
