@@ -61,23 +61,24 @@ const onSwitchedFactory = ({selectedStates, setSelectedStates, stateValue}) => {
 }
 
 const ProjectStatusCard = ({loading, stateOptions, selectedStates, setSelectedStates}) => {
-    console.log(selectedStates);
     return (
         <Spin spinning={loading}>
             <Card style={{marginBottom: 4}} title="Project status">
-                {
-                    map(
-                        (so) => {
-                            return <OptionSwitch 
-                                key={so.value}
-                                value={so.value} 
-                                label={so.label} 
-                                selectedStates={selectedStates}
-                                setSelectedStates={setSelectedStates}
-                            />
-                        }
-                    )(stateOptions)
-                }
+                <div style={{display: "flex", flexDirection: "column"}}>
+                    {
+                        map(
+                            (so) => {
+                                return <OptionSwitch 
+                                    key={so.value}
+                                    value={so.value} 
+                                    label={so.label} 
+                                    selectedStates={selectedStates}
+                                    setSelectedStates={setSelectedStates}
+                                />
+                            }
+                        )(stateOptions)
+                    }
+                </div>
             </Card>
         </Spin>
     )

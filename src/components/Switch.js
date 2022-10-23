@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-// toggle
 const SwitchLabel = styled.label`
     cursor: pointer;
     display: inline-block;
@@ -13,13 +12,11 @@ const SwitchLabel = styled.label`
     }
 `; 
 
-// toggle-checkbox
 const SwitchInput = styled.input` 
     position: absolute;
     visibility: hidden;
 `;
 
-// toggle-switch
 const SwitchToggle = styled.div`
     display: inline-block;
     background: #ccc;
@@ -56,7 +53,6 @@ const SwitchToggle = styled.div`
     }
 `;
 
-// toggle-label
 const SwitchText = styled.span`
     margin-left: 5px;
     position: relative;

@@ -4,6 +4,7 @@ import { Row, Col, Card, Spin } from 'antd';
 import { getOr, get, map, filter } from 'lodash/fp';
 import { ProjectStatusCard } from './ProjectStatusCard';
 import { InfoCard } from './InfoCard';
+import { BurgerMenu } from './BurgerMenu';
 
 
 const SideCard = ({loading, children}) => {
@@ -49,16 +50,15 @@ const Main = ({dataLoaded, data}) => {
         getOr([], 'projects', data)
     );
 
+
     return (
-        <Row>
-            <Col flex={4}>
-                <Spin spinning={!(dataLoaded && mapLoaded)}>
-                    <div style={{height: '100vh', padding: '8px 0px 8px 8px'}}>
-                        <ProjectMap data={projects} setMapLoaded={setMapLoaded} setPicked={setPicked} picked={picked}/>
-                    </div>
-                </Spin>
-            </Col>
-            <Col flex={1} style={{padding: 8, maxWidth: 300}}>
+        <div style={{height: '100vh', padding: '8px 0px 8px 8px'}}>
+            <Spin spinning={!(dataLoaded && mapLoaded)}>
+                <div style={{height: '100vh', padding: '8px 0px 8px 8px'}}>
+                    <ProjectMap data={projects} setMapLoaded={setMapLoaded} setPicked={setPicked} picked={picked}/>
+                </div>
+            </Spin>
+            <BurgerMenu>
                 <ProjectStatusCard 
                     loading={!dataLoaded} 
                     stateOptions={states}
@@ -66,8 +66,8 @@ const Main = ({dataLoaded, data}) => {
                     setSelectedStates={setSelectedStates}
                 />
                 <InfoCard picked={pickedProject} />
-            </Col>
-        </Row>
+            </BurgerMenu>
+        </div>
     )
 };
 
