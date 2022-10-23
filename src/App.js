@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Main } from './components/Main';
 import 'antd/dist/antd.css';
+//import { Checkbox } from './components/Checkbox';
+import { Switch } from './components/Switch';
 
 
 function App() {
@@ -17,6 +19,13 @@ function App() {
     }
 
     return <Main dataLoaded={dataState.loaded} data={dataState.data} />
+//    return <div>
+//        <Switch 
+//            activeColor="#d95f02" 
+//            onSwitched={(b) => b ? console.log("on") : console.log("off")}
+//            labelText="This is a switch"
+//        />
+//    </div>
 }
 
 export default App;

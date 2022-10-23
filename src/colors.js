@@ -3,14 +3,14 @@ import { get } from 'lodash/fp';
 
 const colors = {
     "states": {
-        "draft": "#ea9999",
-        "openForComment": "#c90076",
-        "underReview": "#9cb8d1",
-        "approved": "#3d85c6",
-        "underConstruction": "#f7e62b",
-        "operating": "#2bb120",
-        "partiallyConstructed": "#b6d7a8",
-        "cancelled": "#bcbcbc",
+        "draft": "#1b9e77",
+        "openForComment": "#d95f02",
+        "underReview": "#7570b3",
+        "approved": "#e7298a",
+        "underConstruction": "#66a61e",
+        "operating": "#e6ab02",
+        "partiallyConstructed": "#a6761d",
+        "cancelled": "#666666",
         "unknown": "#000000"
     }
 }
