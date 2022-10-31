@@ -37,6 +37,18 @@ const getLineColor = (picked) => {
     }
 }
 
+const getFillColor = (picked) => {
+    return (o) => {
+        if (picked === null) {
+            return colorOfState(get('properties.state', o)).concat([100]);
+        } else if (get('id', o) === picked) {
+            return colorToRGBArray("#ff7700").concat([100]);
+        } else {
+            return colorToRGBArray("#d3d3d3").concat([100]);
+        }
+    }
+}
+
 const getLineWidth = (picked) => {
     return (o) => {
         if (picked === null) {
@@ -66,6 +78,7 @@ const ProjectMap = ({data, setMapLoaded, setPicked, picked}) => {
         pickable: true,
         getLineColor: getLineColor(picked),
         getLineWidth: getLineWidth(picked),
+        getFillColor: getFillColor(picked),
         lineWidthUnits: 'pixels',
         lineCapRounded: true,
         lineJointRounded: true,
