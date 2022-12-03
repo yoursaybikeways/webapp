@@ -29,7 +29,11 @@ const InfoCard = ({picked}) => {
                     <Descriptions.Item label="Last updated"><Typography.Text>{last_updated}</Typography.Text></Descriptions.Item>
                     <Descriptions.Item label="Last cited"><Typography.Text>{last_cited}</Typography.Text></Descriptions.Item>
                 </Descriptions> :
-                <Typography.Text>Click a project on the map to see more</Typography.Text> 
+                <Descriptions>
+                    <Descriptions.Item>
+                        Click a project on the map to see more
+                    </Descriptions.Item>
+                </Descriptions>
             }
         </Card>
     )

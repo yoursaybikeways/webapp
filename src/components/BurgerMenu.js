@@ -8,9 +8,8 @@ const StyledWrapper = styled.div`
     position: fixed;
     top: 0;
     height: 100vh;
-    left: -275px;
-    width: 300px;
-    margin: 8px;
+    left: -285px;
+    width: 310px;
     transition-duration: 0.25s;
     overflow: auto;
     background: #fff;
@@ -20,13 +19,16 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledInput = styled.button`
-    width: 15px;
-    height: 100px;
-    margin-left: 2px;
-    margin-right: 10px;
-    background-color: #89CFF0;
+    width: 20px;
+    padding: 0;
+    height: 80px;
+    margin-left: 4px;
+    margin-right: 4px;
     border-width: 0px;
+    background-color: #89CFF0;
+    color: white;
     vertical-align: middle;
+    text-align: center;
     border-radius: 20px;
     align-self: center;
     &:hover {
@@ -37,10 +39,13 @@ const StyledInput = styled.button`
 const StyledContent = styled.div`
     overflow: auto;
     padding: 8px;
+    width: 100%;
 `;
 
-const BurgerToggle = ({onClick}) => {
-    return <StyledInput onClick={onClick} />
+const BurgerToggle = ({open, onClick}) => {
+    return <StyledInput onClick={onClick}>
+        {open ? "<" : ">"}
+    </StyledInput>
 };
 
 
@@ -52,7 +57,7 @@ const BurgerMenu = ({children}) => {
             <StyledContent>
                 {children}
             </StyledContent>
-            <BurgerToggle onClick={() => setOpen(!open)}/>
+            <BurgerToggle open={open} onClick={() => setOpen(!open)}/>
         </StyledWrapper>
     )
 };

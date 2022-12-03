@@ -5,6 +5,7 @@ import { getOr, get, map, filter } from 'lodash/fp';
 import { ProjectStatusCard } from './ProjectStatusCard';
 import { InfoCard } from './InfoCard';
 import { BurgerMenu } from './BurgerMenu';
+import { Modal } from './Modal';
 
 
 const SideCard = ({loading, children}) => {
@@ -50,15 +51,17 @@ const Main = ({dataLoaded, data}) => {
         getOr([], 'projects', data)
     );
 
+    const [showInfoModal, setShowInfoModal] = useState(true);
 
     return (
-        <div style={{height: '100vh', padding: '8px 0px 8px 8px'}}>
+        <div style={{height: '100vh'}}>
             <Spin spinning={!(dataLoaded && mapLoaded)}>
-                <div style={{height: '100vh', padding: '8px 0px 8px 8px'}}>
+                <div style={{height: '100vh'}}>
                     <ProjectMap data={projects} setMapLoaded={setMapLoaded} setPicked={setPicked} picked={picked}/>
                 </div>
             </Spin>
             <BurgerMenu>
+                <input type="button" value="help" onClick={() => setShowInfoModal(true)} />
                 <ProjectStatusCard 
                     loading={!dataLoaded} 
                     stateOptions={states}
@@ -66,6 +69,26 @@ const Main = ({dataLoaded, data}) => {
                     setSelectedStates={setSelectedStates}
                 />
                 <InfoCard picked={pickedProject} />
+                <Modal shown={showInfoModal} onOutsideClick={() => setShowInfoModal(!showInfoModal)}>
+                    <h1>Yoursaybikeways</h1>
+                    <p>Hi! Yoursaybikeways is a very amateur project that has arisen 
+                        from an obsession with council cycleway feedback surveys
+                        and a desire to see them all laid out on a map. </p>
+                    <p>I've organised my trawling of the various feedback websites of the councils 
+                        across Sydney into this map. I've drawn the proposed cycleways and tried as
+                        best I can to categorise their current state using only the information
+                        available on project websites.</p>
+                    <h2>How to use it</h2>
+                        <p>Each project is shown on the map, colour coded by their state. Each colour can be toggled
+                        on or off using the switches in the menu on the left.</p>
+                        <p>Clicking on a project on the map selects it, and more details can be seen in the menu
+                        on the left.</p>
+                        <p>The menu can be hidden and shown so you can see more of the map by clicking the blue pill on its right.</p>
+                    <h2>How can I contribute?</h2>
+                        <p>I've set up a google form if you think any of the data is out-of-date, or a proejct is missing.
+                        You can find that form <a href="https://docs.google.com/forms/d/e/1FAIpQLSd-nRaC-jMttWvNpSFyFDlTSNax85bsKXV3zPqrCvofcQVDDw/viewform?usp=sf_link" target="_blank">here</a>.</p>
+                    <input type="button" value="close" onClick={() => setShowInfoModal(false)} />
+                </Modal>
             </BurgerMenu>
         </div>
     )
