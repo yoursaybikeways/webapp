@@ -1,6 +1,8 @@
 import { get, getOr } from 'lodash/fp';
 import { Card, Typography, Descriptions } from 'antd';
 import { lgaLabel, tagLabel, stateLabel } from '../data';
+import { Pill } from '../components/Pill';
+import { colorOfStateHex } from '../colors';
 
 
 const InfoCard = ({picked}) => {
@@ -9,7 +11,8 @@ const InfoCard = ({picked}) => {
     const lga = get('lga', picked);
     const url = get('url', picked);
     const tags = getOr([])('tags')(picked).map(get('key'));
-    const state = get('state.key', picked)
+    const state = get('state', picked)
+    const state_key = get('state.key', picked)
     const last_updated = get('last_updated', picked)
     const last_cited = get('last_cited', picked)
 
@@ -18,8 +21,8 @@ const InfoCard = ({picked}) => {
             { (key !== undefined) ? 
                 <Descriptions column={1}>
                     <Descriptions.Item label="Title"><Typography.Text>{title}</Typography.Text></Descriptions.Item>
-                    <Descriptions.Item label="Status"><Typography.Text>{stateLabel(state)}</Typography.Text></Descriptions.Item>
-                    <Descriptions.Item label="LGA"><Typography.Text>{lgaLabel(lga)}</Typography.Text></Descriptions.Item>
+                    <Descriptions.Item label="Status"><Pill isDark color={colorOfStateHex(state)}>{stateLabel(state_key)}</Pill></Descriptions.Item>
+                    <Descriptions.Item label="Authority">{lga ? <Pill>{lgaLabel(lga)}</Pill> : undefined }</Descriptions.Item>
                     <Descriptions.Item label="URL"><Typography.Link href={url} target="_blank">{url}</Typography.Link></Descriptions.Item>
                     <Descriptions.Item label="Tags">
                         <Typography.Text>

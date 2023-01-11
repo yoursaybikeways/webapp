@@ -2,6 +2,9 @@
 
 const lgaLabel = (key) => {
     switch (key) {
+        case "tfnsw":
+            return "TfNSW"
+            break;
         case "inner-west":
             return "Inner West"
             break;
