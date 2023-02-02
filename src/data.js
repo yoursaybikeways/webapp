@@ -96,6 +96,9 @@ const tagLabel = (key) => {
         case "unprotected-cycle-lane":
             return "Unprotected cycle lane";
             break;
+        case "separated-cycleway-removal":
+            return "Separated cycleway removal";
+            break;
         default:
             return key
     }
