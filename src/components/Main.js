@@ -1,11 +1,12 @@
 import { Fragment, useState } from 'react';
 import { ProjectMap } from './ProjectMap';
 import { Row, Col, Card, Spin } from 'antd';
-import { getOr, get, map, filter } from 'lodash/fp';
+import { getOr, get, map, filter, pipe } from 'lodash/fp';
 import { ProjectStatusCard } from './ProjectStatusCard';
 import { InfoCard } from './InfoCard';
 import { BurgerMenu } from './BurgerMenu';
 import { Modal } from './Modal';
+import { useParams, useNavigate } from 'react-router-dom';
 
 
 const SideCard = ({loading, children}) => {
@@ -40,7 +41,12 @@ const Main = ({dataLoaded, data}) => {
             states
         )
     );
-    const [picked, setPicked] = useState(null);
+    const picked = pipe(
+        useParams,
+        get('id'),
+        parseInt,
+        (i) => isNaN(i) ? null : i,
+    )();
     const pickedProject = getOr({})(0)(filter(
         (p) => p.key === picked,
         getOr([])('projects')(data)
@@ -52,7 +58,9 @@ const Main = ({dataLoaded, data}) => {
     );
 
     const [showInfoModal, setShowInfoModal] = useState(true);
-
+    
+    const navigate = useNavigate();
+    const setPicked = (id) => id === null ? navigate("/") : navigate(`/projects/${id}`);
     return (
         <div style={{height: '100vh'}}>
             <Spin spinning={!(dataLoaded && mapLoaded)}>

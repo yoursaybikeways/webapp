@@ -10,22 +10,23 @@ const { reducer, actions } = createSlice({
         projects: [],
     },
     reducers: {},
-    extraReducers: {
-        [cycleProjectsFetch.pending]: (state, action) => {
-            return {
-                ...state,
-                isLoading: true
-            }
-        },
-        [cycleProjectsFetch.fulfilled]: (state, action) => {
-            const projects = action.payload;
-            return {
-                isLoading: false,
-                hasLoaded: true,
-                projects,
-            }
-        },
-    }
-});
+    extraReducers: (builder) => {
+        builder
+            .addCase(cycleProjectsFetch.pending, (state, action) => {
+                return {
+                    ...state,
+                    isLoading: true
+                }
+            })
+            .addCase(cycleProjectsFetch.fulfilled, (state, action) => {
+                const projects = action.payload;
+                return {
+                    isLoading: false,
+                    hasLoaded: true,
+                    projects,
+                }
+            })
+        }
+    });
 
 export { reducer, actions };
