@@ -3,7 +3,7 @@ import { Main } from './components/Main';
 import 'antd/dist/antd.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { cycleProjectsFetch } from './actions/fetch-cycle-projects';
 import { get } from 'lodash/fp';
 
@@ -21,7 +21,7 @@ function App() {
     const data = useSelector(get('cycleProjects'));
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Routes>
                 <Route 
                     path="/" 
@@ -32,7 +32,7 @@ function App() {
                     element={<Main dataLoaded={hasLoaded && !isLoading} data={data} />}
                 />
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
