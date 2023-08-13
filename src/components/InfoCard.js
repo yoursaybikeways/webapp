@@ -4,6 +4,10 @@ import { lgaLabel, tagLabel, stateLabel } from '../data';
 import { Pill } from '../components/Pill';
 import { colorOfStateHex } from '../colors';
 
+const extraLink = (url, key) => {
+    return <li key={key}><Typography.Link href={url} target="_blank">{url}</Typography.Link></li>
+};
+
 
 const InfoCard = ({picked}) => {
     const key = get('key', picked);
@@ -11,10 +15,11 @@ const InfoCard = ({picked}) => {
     const lga = get('lga', picked);
     const url = get('url', picked);
     const tags = getOr([])('tags')(picked).map(get('key'));
-    const state = get('state', picked)
-    const state_key = get('state.key', picked)
-    const last_updated = get('last_updated', picked)
-    const last_cited = get('last_cited', picked)
+    const state = get('state', picked);
+    const state_key = get('state.key', picked);
+    const last_updated = get('last_updated', picked);
+    const last_cited = get('last_cited', picked);
+    const extra_links = getOr([])('extra_links')(picked);
 
     return (
         <Card style={{marginBottom: 4}} title="Selected">
@@ -31,6 +36,11 @@ const InfoCard = ({picked}) => {
                     </Descriptions.Item>
                     <Descriptions.Item label="Last updated"><Typography.Text>{last_updated}</Typography.Text></Descriptions.Item>
                     <Descriptions.Item label="Last cited"><Typography.Text>{last_cited}</Typography.Text></Descriptions.Item>
+                    <Descriptions.Item label="Extra links">
+                        <ul>
+                            {extra_links.map(extraLink)}
+                        </ul>
+                    </Descriptions.Item>
                 </Descriptions> :
                 <Descriptions>
                     <Descriptions.Item>
